@@ -1,0 +1,1717 @@
+start symbol used on the rhs of 3 rules
+
+warning: start symbol appears on the rhs of <decs : SEMICOLON decs >
+warning: start symbol appears on the rhs of <decs : dec decs >
+warning: start symbol appears on the rhs of <atexp : LET decs IN expseq END >
+
+state 0:
+
+	decs : .  (reduce by rule 0)
+	decs : . SEMICOLON decs 
+	decs : . dec decs 
+
+	FUN	shift 4
+	VAL	shift 3
+	SEMICOLON	shift 2
+	EOF	reduce by rule 0
+
+	decs	goto 75
+	dec	goto 1
+
+	.	error
+
+
+state 1:
+
+	decs : dec . decs 
+
+	FUN	shift 4
+	IN	reduce by rule 0
+	VAL	shift 3
+	SEMICOLON	shift 2
+	EOF	reduce by rule 0
+
+	decs	goto 5
+	dec	goto 1
+
+	.	error
+
+
+state 2:
+
+	decs : SEMICOLON . decs 
+
+	FUN	shift 4
+	IN	reduce by rule 0
+	VAL	shift 3
+	SEMICOLON	shift 2
+	EOF	reduce by rule 0
+
+	decs	goto 6
+	dec	goto 1
+
+	.	error
+
+
+state 3:
+
+	dec : VAL . valbind 
+
+	LPAREN	shift 14
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 11
+
+	valbind	goto 10
+	pat	goto 9
+	atpat	goto 8
+	scon	goto 7
+
+	.	error
+
+
+state 4:
+
+	dec : FUN . funbind 
+
+	ID	shift 16
+
+	funbind	goto 15
+
+	.	error
+
+
+state 5:
+
+	decs : dec decs .  (reduce by rule 2)
+
+	IN	reduce by rule 2
+	EOF	reduce by rule 2
+
+
+	.	error
+
+
+state 6:
+
+	decs : SEMICOLON decs .  (reduce by rule 1)
+
+	IN	reduce by rule 1
+	EOF	reduce by rule 1
+
+
+	.	error
+
+
+state 7:
+
+	atpat : scon .  (reduce by rule 8)
+
+	LPAREN	reduce by rule 8
+	RPAREN	reduce by rule 8
+	EQ	reduce by rule 8
+	BOOL	reduce by rule 8
+	INT	reduce by rule 8
+	ID	reduce by rule 8
+
+
+	.	error
+
+
+state 8:
+
+	pat : atpat .  (reduce by rule 7)
+
+	RPAREN	reduce by rule 7
+	EQ	reduce by rule 7
+
+
+	.	error
+
+
+state 9:
+
+	valbind : pat . EQ exp 
+
+	EQ	shift 17
+
+
+	.	error
+
+
+state 10:
+
+	dec : VAL valbind .  (reduce by rule 3)
+
+	FUN	reduce by rule 3
+	IN	reduce by rule 3
+	VAL	reduce by rule 3
+	SEMICOLON	reduce by rule 3
+	EOF	reduce by rule 3
+
+
+	.	error
+
+
+state 11:
+
+	atpat : ID .  (reduce by rule 9)
+
+	LPAREN	reduce by rule 9
+	RPAREN	reduce by rule 9
+	EQ	reduce by rule 9
+	BOOL	reduce by rule 9
+	INT	reduce by rule 9
+	ID	reduce by rule 9
+
+
+	.	error
+
+
+state 12:
+
+	scon : INT .  (reduce by rule 37)
+
+	ANDALSO	reduce by rule 37
+	ELSE	reduce by rule 37
+	END	reduce by rule 37
+	FUN	reduce by rule 37
+	IN	reduce by rule 37
+	LET	reduce by rule 37
+	ORELSE	reduce by rule 37
+	THEN	reduce by rule 37
+	VAL	reduce by rule 37
+	LPAREN	reduce by rule 37
+	RPAREN	reduce by rule 37
+	SEMICOLON	reduce by rule 37
+	EQ	reduce by rule 37
+	PLUS	reduce by rule 37
+	MINUS	reduce by rule 37
+	TIMES	reduce by rule 37
+	DIV	reduce by rule 37
+	NEQ	reduce by rule 37
+	LT	reduce by rule 37
+	LE	reduce by rule 37
+	GT	reduce by rule 37
+	GE	reduce by rule 37
+	BOOL	reduce by rule 37
+	INT	reduce by rule 37
+	ID	reduce by rule 37
+	EOF	reduce by rule 37
+
+
+	.	error
+
+
+state 13:
+
+	scon : BOOL .  (reduce by rule 38)
+
+	ANDALSO	reduce by rule 38
+	ELSE	reduce by rule 38
+	END	reduce by rule 38
+	FUN	reduce by rule 38
+	IN	reduce by rule 38
+	LET	reduce by rule 38
+	ORELSE	reduce by rule 38
+	THEN	reduce by rule 38
+	VAL	reduce by rule 38
+	LPAREN	reduce by rule 38
+	RPAREN	reduce by rule 38
+	SEMICOLON	reduce by rule 38
+	EQ	reduce by rule 38
+	PLUS	reduce by rule 38
+	MINUS	reduce by rule 38
+	TIMES	reduce by rule 38
+	DIV	reduce by rule 38
+	NEQ	reduce by rule 38
+	LT	reduce by rule 38
+	LE	reduce by rule 38
+	GT	reduce by rule 38
+	GE	reduce by rule 38
+	BOOL	reduce by rule 38
+	INT	reduce by rule 38
+	ID	reduce by rule 38
+	EOF	reduce by rule 38
+
+
+	.	error
+
+
+state 14:
+
+	atpat : LPAREN . pat RPAREN 
+
+	LPAREN	shift 14
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 11
+
+	pat	goto 18
+	atpat	goto 8
+	scon	goto 7
+
+	.	error
+
+
+state 15:
+
+	dec : FUN funbind .  (reduce by rule 4)
+
+	FUN	reduce by rule 4
+	IN	reduce by rule 4
+	VAL	reduce by rule 4
+	SEMICOLON	reduce by rule 4
+	EOF	reduce by rule 4
+
+
+	.	error
+
+
+state 16:
+
+	funbind : ID . atpats EQ exp 
+
+	LPAREN	shift 14
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 11
+
+	atpat	goto 20
+	atpats	goto 19
+	scon	goto 7
+
+	.	error
+
+
+state 17:
+
+	valbind : pat EQ . exp 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 25
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 18:
+
+	atpat : LPAREN pat . RPAREN 
+
+	RPAREN	shift 31
+
+
+	.	error
+
+
+state 19:
+
+	funbind : ID atpats . EQ exp 
+	atpats : atpats . atpat 
+
+	LPAREN	shift 14
+	EQ	shift 33
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 11
+
+	atpat	goto 32
+	scon	goto 7
+
+	.	error
+
+
+state 20:
+
+	atpats : atpat .  (reduce by rule 11)
+
+	LPAREN	reduce by rule 11
+	EQ	reduce by rule 11
+	BOOL	reduce by rule 11
+	INT	reduce by rule 11
+	ID	reduce by rule 11
+
+
+	.	error
+
+
+state 21:
+
+	atexp : scon .  (reduce by rule 31)
+
+	ANDALSO	reduce by rule 31
+	ELSE	reduce by rule 31
+	END	reduce by rule 31
+	FUN	reduce by rule 31
+	IN	reduce by rule 31
+	LET	reduce by rule 31
+	ORELSE	reduce by rule 31
+	THEN	reduce by rule 31
+	VAL	reduce by rule 31
+	LPAREN	reduce by rule 31
+	RPAREN	reduce by rule 31
+	SEMICOLON	reduce by rule 31
+	EQ	reduce by rule 31
+	PLUS	reduce by rule 31
+	MINUS	reduce by rule 31
+	TIMES	reduce by rule 31
+	DIV	reduce by rule 31
+	NEQ	reduce by rule 31
+	LT	reduce by rule 31
+	LE	reduce by rule 31
+	GT	reduce by rule 31
+	GE	reduce by rule 31
+	BOOL	reduce by rule 31
+	INT	reduce by rule 31
+	ID	reduce by rule 31
+	EOF	reduce by rule 31
+
+
+	.	error
+
+
+state 22:
+
+	appexp : atexp .  (reduce by rule 28)
+
+	ANDALSO	reduce by rule 28
+	ELSE	reduce by rule 28
+	END	reduce by rule 28
+	FUN	reduce by rule 28
+	IN	reduce by rule 28
+	LET	reduce by rule 28
+	ORELSE	reduce by rule 28
+	THEN	reduce by rule 28
+	VAL	reduce by rule 28
+	LPAREN	reduce by rule 28
+	RPAREN	reduce by rule 28
+	SEMICOLON	reduce by rule 28
+	EQ	reduce by rule 28
+	PLUS	reduce by rule 28
+	MINUS	reduce by rule 28
+	TIMES	reduce by rule 28
+	DIV	reduce by rule 28
+	NEQ	reduce by rule 28
+	LT	reduce by rule 28
+	LE	reduce by rule 28
+	GT	reduce by rule 28
+	GE	reduce by rule 28
+	BOOL	reduce by rule 28
+	INT	reduce by rule 28
+	ID	reduce by rule 28
+	EOF	reduce by rule 28
+
+
+	.	error
+
+
+state 23:
+
+	infexp : appexp .  (reduce by rule 17)
+	appexp : appexp . atexp 
+
+	ANDALSO	reduce by rule 17
+	ELSE	reduce by rule 17
+	END	reduce by rule 17
+	FUN	reduce by rule 17
+	IN	reduce by rule 17
+	LET	shift 29
+	ORELSE	reduce by rule 17
+	THEN	reduce by rule 17
+	VAL	reduce by rule 17
+	LPAREN	shift 28
+	RPAREN	reduce by rule 17
+	SEMICOLON	reduce by rule 17
+	EQ	reduce by rule 17
+	PLUS	reduce by rule 17
+	MINUS	reduce by rule 17
+	TIMES	reduce by rule 17
+	DIV	reduce by rule 17
+	NEQ	reduce by rule 17
+	LT	reduce by rule 17
+	LE	reduce by rule 17
+	GT	reduce by rule 17
+	GE	reduce by rule 17
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+	EOF	reduce by rule 17
+
+	atexp	goto 34
+	scon	goto 21
+
+	.	error
+
+
+state 24:
+
+	exp : infexp .  (reduce by rule 13)
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 13
+	ELSE	reduce by rule 13
+	END	reduce by rule 13
+	FUN	reduce by rule 13
+	IN	reduce by rule 13
+	ORELSE	reduce by rule 13
+	THEN	reduce by rule 13
+	VAL	reduce by rule 13
+	RPAREN	reduce by rule 13
+	SEMICOLON	reduce by rule 13
+	EQ	shift 44
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	shift 39
+	LT	shift 38
+	LE	shift 37
+	GT	shift 36
+	GE	shift 35
+	EOF	reduce by rule 13
+
+
+	.	error
+
+
+state 25:
+
+	valbind : pat EQ exp .  (reduce by rule 5)
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+
+	ANDALSO	shift 46
+	FUN	reduce by rule 5
+	IN	reduce by rule 5
+	ORELSE	shift 45
+	VAL	reduce by rule 5
+	SEMICOLON	reduce by rule 5
+	EOF	reduce by rule 5
+
+
+	.	error
+
+
+state 26:
+
+	atexp : ID .  (reduce by rule 32)
+
+	ANDALSO	reduce by rule 32
+	ELSE	reduce by rule 32
+	END	reduce by rule 32
+	FUN	reduce by rule 32
+	IN	reduce by rule 32
+	LET	reduce by rule 32
+	ORELSE	reduce by rule 32
+	THEN	reduce by rule 32
+	VAL	reduce by rule 32
+	LPAREN	reduce by rule 32
+	RPAREN	reduce by rule 32
+	SEMICOLON	reduce by rule 32
+	EQ	reduce by rule 32
+	PLUS	reduce by rule 32
+	MINUS	reduce by rule 32
+	TIMES	reduce by rule 32
+	DIV	reduce by rule 32
+	NEQ	reduce by rule 32
+	LT	reduce by rule 32
+	LE	reduce by rule 32
+	GT	reduce by rule 32
+	GE	reduce by rule 32
+	BOOL	reduce by rule 32
+	INT	reduce by rule 32
+	ID	reduce by rule 32
+	EOF	reduce by rule 32
+
+
+	.	error
+
+
+state 27:
+
+	appexp : NOT . atexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	atexp	goto 47
+	scon	goto 21
+
+	.	error
+
+
+state 28:
+
+	atexp : LPAREN . exp RPAREN 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 48
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 29:
+
+	atexp : LET . decs IN expseq END 
+
+	FUN	shift 4
+	IN	reduce by rule 0
+	VAL	shift 3
+	SEMICOLON	shift 2
+
+	decs	goto 49
+	dec	goto 1
+
+	.	error
+
+
+state 30:
+
+	exp : IF . exp THEN exp ELSE exp 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 50
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 31:
+
+	atpat : LPAREN pat RPAREN .  (reduce by rule 10)
+
+	LPAREN	reduce by rule 10
+	RPAREN	reduce by rule 10
+	EQ	reduce by rule 10
+	BOOL	reduce by rule 10
+	INT	reduce by rule 10
+	ID	reduce by rule 10
+
+
+	.	error
+
+
+state 32:
+
+	atpats : atpats atpat .  (reduce by rule 12)
+
+	LPAREN	reduce by rule 12
+	EQ	reduce by rule 12
+	BOOL	reduce by rule 12
+	INT	reduce by rule 12
+	ID	reduce by rule 12
+
+
+	.	error
+
+
+state 33:
+
+	funbind : ID atpats EQ . exp 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 51
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 34:
+
+	appexp : appexp atexp .  (reduce by rule 29)
+
+	ANDALSO	reduce by rule 29
+	ELSE	reduce by rule 29
+	END	reduce by rule 29
+	FUN	reduce by rule 29
+	IN	reduce by rule 29
+	LET	reduce by rule 29
+	ORELSE	reduce by rule 29
+	THEN	reduce by rule 29
+	VAL	reduce by rule 29
+	LPAREN	reduce by rule 29
+	RPAREN	reduce by rule 29
+	SEMICOLON	reduce by rule 29
+	EQ	reduce by rule 29
+	PLUS	reduce by rule 29
+	MINUS	reduce by rule 29
+	TIMES	reduce by rule 29
+	DIV	reduce by rule 29
+	NEQ	reduce by rule 29
+	LT	reduce by rule 29
+	LE	reduce by rule 29
+	GT	reduce by rule 29
+	GE	reduce by rule 29
+	BOOL	reduce by rule 29
+	INT	reduce by rule 29
+	ID	reduce by rule 29
+	EOF	reduce by rule 29
+
+
+	.	error
+
+
+state 35:
+
+	infexp : infexp GE . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 52
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 36:
+
+	infexp : infexp GT . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 53
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 37:
+
+	infexp : infexp LE . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 54
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 38:
+
+	infexp : infexp LT . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 55
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 39:
+
+	infexp : infexp NEQ . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 56
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 40:
+
+	infexp : infexp DIV . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 57
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 41:
+
+	infexp : infexp TIMES . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 58
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 42:
+
+	infexp : infexp MINUS . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 59
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 43:
+
+	infexp : infexp PLUS . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 60
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 44:
+
+	infexp : infexp EQ . infexp 
+
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	infexp	goto 61
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 45:
+
+	exp : exp ORELSE . exp 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 62
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 46:
+
+	exp : exp ANDALSO . exp 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 63
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 47:
+
+	appexp : NOT atexp .  (reduce by rule 30)
+
+	ANDALSO	reduce by rule 30
+	ELSE	reduce by rule 30
+	END	reduce by rule 30
+	FUN	reduce by rule 30
+	IN	reduce by rule 30
+	LET	reduce by rule 30
+	ORELSE	reduce by rule 30
+	THEN	reduce by rule 30
+	VAL	reduce by rule 30
+	LPAREN	reduce by rule 30
+	RPAREN	reduce by rule 30
+	SEMICOLON	reduce by rule 30
+	EQ	reduce by rule 30
+	PLUS	reduce by rule 30
+	MINUS	reduce by rule 30
+	TIMES	reduce by rule 30
+	DIV	reduce by rule 30
+	NEQ	reduce by rule 30
+	LT	reduce by rule 30
+	LE	reduce by rule 30
+	GT	reduce by rule 30
+	GE	reduce by rule 30
+	BOOL	reduce by rule 30
+	INT	reduce by rule 30
+	ID	reduce by rule 30
+	EOF	reduce by rule 30
+
+
+	.	error
+
+
+state 48:
+
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+	atexp : LPAREN exp . RPAREN 
+
+	ANDALSO	shift 46
+	ORELSE	shift 45
+	RPAREN	shift 64
+
+
+	.	error
+
+
+state 49:
+
+	atexp : LET decs . IN expseq END 
+
+	IN	shift 65
+
+
+	.	error
+
+
+state 50:
+
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+	exp : IF exp . THEN exp ELSE exp 
+
+	ANDALSO	shift 46
+	ORELSE	shift 45
+	THEN	shift 66
+
+
+	.	error
+
+
+state 51:
+
+	funbind : ID atpats EQ exp .  (reduce by rule 6)
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+
+	ANDALSO	shift 46
+	FUN	reduce by rule 6
+	IN	reduce by rule 6
+	ORELSE	shift 45
+	VAL	reduce by rule 6
+	SEMICOLON	reduce by rule 6
+	EOF	reduce by rule 6
+
+
+	.	error
+
+
+state 52:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+	infexp : infexp GE infexp .  (reduce by rule 27)
+
+	ANDALSO	reduce by rule 27
+	ELSE	reduce by rule 27
+	END	reduce by rule 27
+	FUN	reduce by rule 27
+	IN	reduce by rule 27
+	ORELSE	reduce by rule 27
+	THEN	reduce by rule 27
+	VAL	reduce by rule 27
+	RPAREN	reduce by rule 27
+	SEMICOLON	reduce by rule 27
+	EQ	reduce by rule 27
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	reduce by rule 27
+	LT	reduce by rule 27
+	LE	reduce by rule 27
+	GT	reduce by rule 27
+	GE	reduce by rule 27
+	EOF	reduce by rule 27
+
+
+	.	error
+
+
+state 53:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp GT infexp .  (reduce by rule 26)
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 26
+	ELSE	reduce by rule 26
+	END	reduce by rule 26
+	FUN	reduce by rule 26
+	IN	reduce by rule 26
+	ORELSE	reduce by rule 26
+	THEN	reduce by rule 26
+	VAL	reduce by rule 26
+	RPAREN	reduce by rule 26
+	SEMICOLON	reduce by rule 26
+	EQ	reduce by rule 26
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	reduce by rule 26
+	LT	reduce by rule 26
+	LE	reduce by rule 26
+	GT	reduce by rule 26
+	GE	reduce by rule 26
+	EOF	reduce by rule 26
+
+
+	.	error
+
+
+state 54:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp LE infexp .  (reduce by rule 25)
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 25
+	ELSE	reduce by rule 25
+	END	reduce by rule 25
+	FUN	reduce by rule 25
+	IN	reduce by rule 25
+	ORELSE	reduce by rule 25
+	THEN	reduce by rule 25
+	VAL	reduce by rule 25
+	RPAREN	reduce by rule 25
+	SEMICOLON	reduce by rule 25
+	EQ	reduce by rule 25
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	reduce by rule 25
+	LT	reduce by rule 25
+	LE	reduce by rule 25
+	GT	reduce by rule 25
+	GE	reduce by rule 25
+	EOF	reduce by rule 25
+
+
+	.	error
+
+
+state 55:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp LT infexp .  (reduce by rule 24)
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 24
+	ELSE	reduce by rule 24
+	END	reduce by rule 24
+	FUN	reduce by rule 24
+	IN	reduce by rule 24
+	ORELSE	reduce by rule 24
+	THEN	reduce by rule 24
+	VAL	reduce by rule 24
+	RPAREN	reduce by rule 24
+	SEMICOLON	reduce by rule 24
+	EQ	reduce by rule 24
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	reduce by rule 24
+	LT	reduce by rule 24
+	LE	reduce by rule 24
+	GT	reduce by rule 24
+	GE	reduce by rule 24
+	EOF	reduce by rule 24
+
+
+	.	error
+
+
+state 56:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp NEQ infexp .  (reduce by rule 23)
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 23
+	ELSE	reduce by rule 23
+	END	reduce by rule 23
+	FUN	reduce by rule 23
+	IN	reduce by rule 23
+	ORELSE	reduce by rule 23
+	THEN	reduce by rule 23
+	VAL	reduce by rule 23
+	RPAREN	reduce by rule 23
+	SEMICOLON	reduce by rule 23
+	EQ	reduce by rule 23
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	reduce by rule 23
+	LT	reduce by rule 23
+	LE	reduce by rule 23
+	GT	reduce by rule 23
+	GE	reduce by rule 23
+	EOF	reduce by rule 23
+
+
+	.	error
+
+
+state 57:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp DIV infexp .  (reduce by rule 21)
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 21
+	ELSE	reduce by rule 21
+	END	reduce by rule 21
+	FUN	reduce by rule 21
+	IN	reduce by rule 21
+	ORELSE	reduce by rule 21
+	THEN	reduce by rule 21
+	VAL	reduce by rule 21
+	RPAREN	reduce by rule 21
+	SEMICOLON	reduce by rule 21
+	EQ	reduce by rule 21
+	PLUS	reduce by rule 21
+	MINUS	reduce by rule 21
+	TIMES	reduce by rule 21
+	DIV	reduce by rule 21
+	NEQ	reduce by rule 21
+	LT	reduce by rule 21
+	LE	reduce by rule 21
+	GT	reduce by rule 21
+	GE	reduce by rule 21
+	EOF	reduce by rule 21
+
+
+	.	error
+
+
+state 58:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp TIMES infexp .  (reduce by rule 20)
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 20
+	ELSE	reduce by rule 20
+	END	reduce by rule 20
+	FUN	reduce by rule 20
+	IN	reduce by rule 20
+	ORELSE	reduce by rule 20
+	THEN	reduce by rule 20
+	VAL	reduce by rule 20
+	RPAREN	reduce by rule 20
+	SEMICOLON	reduce by rule 20
+	EQ	reduce by rule 20
+	PLUS	reduce by rule 20
+	MINUS	reduce by rule 20
+	TIMES	reduce by rule 20
+	DIV	reduce by rule 20
+	NEQ	reduce by rule 20
+	LT	reduce by rule 20
+	LE	reduce by rule 20
+	GT	reduce by rule 20
+	GE	reduce by rule 20
+	EOF	reduce by rule 20
+
+
+	.	error
+
+
+state 59:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp MINUS infexp .  (reduce by rule 19)
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 19
+	ELSE	reduce by rule 19
+	END	reduce by rule 19
+	FUN	reduce by rule 19
+	IN	reduce by rule 19
+	ORELSE	reduce by rule 19
+	THEN	reduce by rule 19
+	VAL	reduce by rule 19
+	RPAREN	reduce by rule 19
+	SEMICOLON	reduce by rule 19
+	EQ	reduce by rule 19
+	PLUS	reduce by rule 19
+	MINUS	reduce by rule 19
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	reduce by rule 19
+	LT	reduce by rule 19
+	LE	reduce by rule 19
+	GT	reduce by rule 19
+	GE	reduce by rule 19
+	EOF	reduce by rule 19
+
+
+	.	error
+
+
+state 60:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp PLUS infexp .  (reduce by rule 18)
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 18
+	ELSE	reduce by rule 18
+	END	reduce by rule 18
+	FUN	reduce by rule 18
+	IN	reduce by rule 18
+	ORELSE	reduce by rule 18
+	THEN	reduce by rule 18
+	VAL	reduce by rule 18
+	RPAREN	reduce by rule 18
+	SEMICOLON	reduce by rule 18
+	EQ	reduce by rule 18
+	PLUS	reduce by rule 18
+	MINUS	reduce by rule 18
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	reduce by rule 18
+	LT	reduce by rule 18
+	LE	reduce by rule 18
+	GT	reduce by rule 18
+	GE	reduce by rule 18
+	EOF	reduce by rule 18
+
+
+	.	error
+
+
+state 61:
+
+	infexp : infexp . PLUS infexp 
+	infexp : infexp . MINUS infexp 
+	infexp : infexp . TIMES infexp 
+	infexp : infexp . DIV infexp 
+	infexp : infexp . EQ infexp 
+	infexp : infexp EQ infexp .  (reduce by rule 22)
+	infexp : infexp . NEQ infexp 
+	infexp : infexp . LT infexp 
+	infexp : infexp . LE infexp 
+	infexp : infexp . GT infexp 
+	infexp : infexp . GE infexp 
+
+	ANDALSO	reduce by rule 22
+	ELSE	reduce by rule 22
+	END	reduce by rule 22
+	FUN	reduce by rule 22
+	IN	reduce by rule 22
+	ORELSE	reduce by rule 22
+	THEN	reduce by rule 22
+	VAL	reduce by rule 22
+	RPAREN	reduce by rule 22
+	SEMICOLON	reduce by rule 22
+	EQ	reduce by rule 22
+	PLUS	shift 43
+	MINUS	shift 42
+	TIMES	shift 41
+	DIV	shift 40
+	NEQ	reduce by rule 22
+	LT	reduce by rule 22
+	LE	reduce by rule 22
+	GT	reduce by rule 22
+	GE	reduce by rule 22
+	EOF	reduce by rule 22
+
+
+	.	error
+
+
+state 62:
+
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+	exp : exp ORELSE exp .  (reduce by rule 15)
+
+	ANDALSO	shift 46
+	ELSE	reduce by rule 15
+	END	reduce by rule 15
+	FUN	reduce by rule 15
+	IN	reduce by rule 15
+	ORELSE	reduce by rule 15
+	THEN	reduce by rule 15
+	VAL	reduce by rule 15
+	RPAREN	reduce by rule 15
+	SEMICOLON	reduce by rule 15
+	EOF	reduce by rule 15
+
+
+	.	error
+
+
+state 63:
+
+	exp : exp . ANDALSO exp 
+	exp : exp ANDALSO exp .  (reduce by rule 14)
+	exp : exp . ORELSE exp 
+
+	ANDALSO	reduce by rule 14
+	ELSE	reduce by rule 14
+	END	reduce by rule 14
+	FUN	reduce by rule 14
+	IN	reduce by rule 14
+	ORELSE	reduce by rule 14
+	THEN	reduce by rule 14
+	VAL	reduce by rule 14
+	RPAREN	reduce by rule 14
+	SEMICOLON	reduce by rule 14
+	EOF	reduce by rule 14
+
+
+	.	error
+
+
+state 64:
+
+	atexp : LPAREN exp RPAREN .  (reduce by rule 33)
+
+	ANDALSO	reduce by rule 33
+	ELSE	reduce by rule 33
+	END	reduce by rule 33
+	FUN	reduce by rule 33
+	IN	reduce by rule 33
+	LET	reduce by rule 33
+	ORELSE	reduce by rule 33
+	THEN	reduce by rule 33
+	VAL	reduce by rule 33
+	LPAREN	reduce by rule 33
+	RPAREN	reduce by rule 33
+	SEMICOLON	reduce by rule 33
+	EQ	reduce by rule 33
+	PLUS	reduce by rule 33
+	MINUS	reduce by rule 33
+	TIMES	reduce by rule 33
+	DIV	reduce by rule 33
+	NEQ	reduce by rule 33
+	LT	reduce by rule 33
+	LE	reduce by rule 33
+	GT	reduce by rule 33
+	GE	reduce by rule 33
+	BOOL	reduce by rule 33
+	INT	reduce by rule 33
+	ID	reduce by rule 33
+	EOF	reduce by rule 33
+
+
+	.	error
+
+
+state 65:
+
+	atexp : LET decs IN . expseq END 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 68
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	expseq	goto 67
+	scon	goto 21
+
+	.	error
+
+
+state 66:
+
+	exp : IF exp THEN . exp ELSE exp 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 69
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 67:
+
+	atexp : LET decs IN expseq . END 
+	expseq : expseq . SEMICOLON exp 
+
+	END	shift 71
+	SEMICOLON	shift 70
+
+
+	.	error
+
+
+state 68:
+
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+	expseq : exp .  (reduce by rule 35)
+
+	ANDALSO	shift 46
+	END	reduce by rule 35
+	ORELSE	shift 45
+	SEMICOLON	reduce by rule 35
+
+
+	.	error
+
+
+state 69:
+
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+	exp : IF exp THEN exp . ELSE exp 
+
+	ANDALSO	shift 46
+	ELSE	shift 72
+	ORELSE	shift 45
+
+
+	.	error
+
+
+state 70:
+
+	expseq : expseq SEMICOLON . exp 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 73
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 71:
+
+	atexp : LET decs IN expseq END .  (reduce by rule 34)
+
+	ANDALSO	reduce by rule 34
+	ELSE	reduce by rule 34
+	END	reduce by rule 34
+	FUN	reduce by rule 34
+	IN	reduce by rule 34
+	LET	reduce by rule 34
+	ORELSE	reduce by rule 34
+	THEN	reduce by rule 34
+	VAL	reduce by rule 34
+	LPAREN	reduce by rule 34
+	RPAREN	reduce by rule 34
+	SEMICOLON	reduce by rule 34
+	EQ	reduce by rule 34
+	PLUS	reduce by rule 34
+	MINUS	reduce by rule 34
+	TIMES	reduce by rule 34
+	DIV	reduce by rule 34
+	NEQ	reduce by rule 34
+	LT	reduce by rule 34
+	LE	reduce by rule 34
+	GT	reduce by rule 34
+	GE	reduce by rule 34
+	BOOL	reduce by rule 34
+	INT	reduce by rule 34
+	ID	reduce by rule 34
+	EOF	reduce by rule 34
+
+
+	.	error
+
+
+state 72:
+
+	exp : IF exp THEN exp ELSE . exp 
+
+	IF	shift 30
+	LET	shift 29
+	LPAREN	shift 28
+	NOT	shift 27
+	BOOL	shift 13
+	INT	shift 12
+	ID	shift 26
+
+	exp	goto 74
+	infexp	goto 24
+	appexp	goto 23
+	atexp	goto 22
+	scon	goto 21
+
+	.	error
+
+
+state 73:
+
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+	expseq : expseq SEMICOLON exp .  (reduce by rule 36)
+
+	ANDALSO	shift 46
+	END	reduce by rule 36
+	ORELSE	shift 45
+	SEMICOLON	reduce by rule 36
+
+
+	.	error
+
+
+state 74:
+
+	exp : exp . ANDALSO exp 
+	exp : exp . ORELSE exp 
+	exp : IF exp THEN exp ELSE exp .  (reduce by rule 16)
+
+	ANDALSO	shift 46
+	ELSE	reduce by rule 16
+	END	reduce by rule 16
+	FUN	reduce by rule 16
+	IN	reduce by rule 16
+	ORELSE	shift 45
+	THEN	reduce by rule 16
+	VAL	reduce by rule 16
+	RPAREN	reduce by rule 16
+	SEMICOLON	reduce by rule 16
+	EOF	reduce by rule 16
+
+
+	.	error
+
+
+state 75:
+
+
+	EOF	accept
+
+
+	.	error
+
+646 of 852 action table entries left after compaction
+116 goto table entries

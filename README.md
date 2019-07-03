@@ -12,17 +12,22 @@ MeiLou grammar is the minimal subset of Standard ML full grammar, see "[The Defi
 <prog> ::= <dec>
 
 <dec> ::= "val" <valbind>
-        | "fun" <funbind>
+        | "fun" <fvalbind>
         |
         | <dec1> ";"? <dec2>
 
 <valbind> ::= <pat> "=" <exp>
+
+<fvalbind> ::= <vid> <atpats> "=" <exp>
 
 <pat> ::= <atpat>
 
 <atpat> ::= <scon>
           | <vid>
           | "(" <pat> ")"
+
+<atpats> ::= <atpat>
+           | <atpats> <atpat>
 
 <exp> ::= <infexp>
         | <exp1> "andalso" <exp2>
@@ -46,7 +51,10 @@ MeiLou grammar is the minimal subset of Standard ML full grammar, see "[The Defi
 <atexp> ::= <scon>
           | <vid>
           | "(" <exp> ")"
-          | "let" <dec> "in" <exp> (";" <exp>)* "end"
+          | "let" <dec> "in" <expseq> "end"
+
+<expseq> ::= <exp>
+           | <exp> ";" <expseq>
 
 <scon> ::= <int>
          | <bool>

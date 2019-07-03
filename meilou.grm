@@ -1,0 +1,105 @@
+structure A = Absyn
+
+%%
+
+%name MeiLou
+
+%term ABSTYPE    | AND        | ANDALSO    | AS
+    | CASE       | DATATYPE   | DO         | ELSE
+    | END        | EXCEPTION  | FN         | FUN
+    | HANDLE     | IF         | IN         | INFIX
+    | INFIXR     | LET        | LOCAL      | NONFIX
+    | OF         | OP         | OPEN       | ORELSE
+    | RAISE      | REC        | THEN       | TYPE
+    | VAL        | WITH       | WITHTYPE   | WHILE
+    | LPAREN     | RPAREN     | LBRACKET   | RBRACKET
+    | LBRACE     | RBRACE     | COMMA      | COLON
+    | SEMICOLON  | PERIODS    | UNDERBAR   | BAR
+    | EQ         | DARROW     | ARROW      | NUMBER
+    | PLUS       | MINUS      | TIMES      | DIV
+    | NEQ        | LT         | LE         | GT
+    | GE         | NOT        | APP
+    | BOOL of bool            | INT of int
+    | ID of string
+    | EOF
+
+%nonterm decs of A.t         | dec of A.t
+       | valbind of A.t      | funbind of A.t
+       | pat of A.t          | atpat of A.t
+       | atpats of A.t list  | exp of A.t
+       | infexp of A.t       | appexp of A.t
+       | atexp of A.t        | expseq of A.t list
+       | scon of A.t
+
+%pos int
+
+%eop EOF
+
+%noshift EOF
+
+%left SEMICOLON
+%left ELSE
+%left ORELSE
+%left ANDALSO
+%left EQ NEQ LT LE GT GE
+%left PLUS MINUS
+%left TIMES DIV
+%left APP
+
+%nodefault
+
+%verbose
+
+%%
+
+decs :                           ( A.Decs [] )
+     | SEMICOLON decs            ( decs )
+     | dec decs                  ( case decs of A.Decs l => A.Decs (dec :: l) | xs => xs )
+
+dec : VAL valbind                ( A.Val valbind )
+    | FUN funbind                ( A.Fun funbind )
+
+valbind : pat EQ exp             ( A.VBind (pat, exp) )
+
+funbind : ID atpats EQ exp       ( A.FBind (A.Vid ID, atpats, exp) )
+
+pat : atpat                      ( atpat )
+
+atpat : scon                     ( scon )
+      | ID                       ( A.Vid ID )
+      | LPAREN pat RPAREN        ( pat )
+
+atpats : atpat                   ( [atpat] )
+       | atpats atpat            ( atpats @ [atpat] )
+
+exp : infexp                     ( infexp )
+    | exp ANDALSO exp            ( A.And (exp1, exp2) )
+    | exp ORELSE exp             ( A.Or (exp1, exp2) )
+    | IF exp THEN exp ELSE exp   ( A.If (exp1, exp2, exp3) )
+
+infexp : appexp                  ( appexp )
+       | infexp PLUS infexp      ( A.Add (infexp1, infexp2) )
+       | infexp MINUS infexp     ( A.Sub (infexp1, infexp2) )
+       | infexp TIMES infexp     ( A.Mul (infexp1, infexp2) )
+       | infexp DIV infexp       ( A.Div (infexp1, infexp2) )
+       | infexp EQ infexp        ( A.Eq (infexp1, infexp2) )
+       | infexp NEQ infexp       ( A.Not (A.Eq (infexp1, infexp2)) )
+       | infexp LT infexp        ( A.Not (A.LE (infexp2, infexp1)) )
+       | infexp LE infexp        ( A.LE (infexp1, infexp2) )
+       | infexp GT infexp        ( A.Not (A.LE (infexp1, infexp2)) )
+       | infexp GE infexp        ( A.LE (infexp2, infexp1) )
+
+appexp : atexp                   ( atexp )
+       | appexp atexp %prec APP  ( A.App (appexp, atexp) )
+       | NOT atexp               ( A.Not atexp )
+
+atexp : scon                     ( scon )
+      | ID                       ( A.Vid ID )
+      | LPAREN exp RPAREN        ( exp )
+      | LET decs IN expseq END   ( A.Let (decs, expseq) )
+
+expseq : exp                     ( [exp] )
+       | expseq SEMICOLON exp    ( expseq @ [exp] )
+
+scon : INT                       ( A.Int INT )
+     | BOOL                      ( A.Bool BOOL )
